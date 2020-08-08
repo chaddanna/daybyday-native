@@ -23,8 +23,8 @@ export function Logs() {
         {tasks
           .filter(completed)
           .sort(latestFirst)
-          .map((t) => (
-            <Log key={t.label} log={t}></Log>
+          .map((t, i) => (
+            <Log key={t.label} log={t} index={i} />
           ))}
       </ScrollView>
     </Container>

@@ -1,18 +1,32 @@
-import React, { FC } from "react";
-import { Text, View } from "react-native";
+import React, { FC, useContext } from "react";
+import { Text, View, TouchableOpacity } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import format from "date-fns/format";
-import { Task } from "../../../../contexts/task";
+import { Task, TaskContext } from "../../../../contexts/task";
 import { styles } from "./index-styles";
+import { colors } from "../../../../styles";
 
 type LogProps = {
   log: Task;
+  index: number;
 };
 
-export const Log: FC<LogProps> = ({ log: { label, dateCompleted } }) => (
-  <View style={styles.log}>
-    <Text style={styles.text}>{label}</Text>
-    {dateCompleted && (
-      <Text style={styles.text}>{format(dateCompleted, "Pp")}</Text>
-    )}
-  </View>
-);
+export const Log: FC<LogProps> = ({ log: { label, dateCompleted }, index }) => {
+  const { deleteTask } = useContext(TaskContext);
+  function handlePress() {
+    deleteTask(index);
+  }
+  return (
+    <View style={styles.log}>
+      <View>
+        <Text style={styles.labelText}>{label}</Text>
+        {dateCompleted && (
+          <Text style={styles.dateText}>{format(dateCompleted, "Pp")}</Text>
+        )}
+      </View>
+      <TouchableOpacity onPress={handlePress}>
+        <Ionicons name="md-trash" size={30} color={colors.white} />
+      </TouchableOpacity>
+    </View>
+  );
+};
