@@ -1,35 +1,24 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { Task, TaskContext } from "../../../../contexts/task";
 import { styles } from "./index-styles";
 import { colors } from "../../../../styles";
 
-export type TodoData = {
-  label: string;
-  isComplete?: boolean;
-};
-
-type ActionFunction = (index: number) => void;
-
 type TodoProps = {
-  todo: TodoData;
+  todo: Task;
   index: number;
-  toggleComplete: ActionFunction;
-  deleteTodo: ActionFunction;
 };
 
-export const Todo: FC<TodoProps> = ({
-  todo,
-  index,
-  toggleComplete,
-  deleteTodo,
-}) => {
+export const Todo: FC<TodoProps> = ({ todo, index }) => {
+  const { actions } = useContext(TaskContext);
+
   function handleDelete() {
-    deleteTodo(index);
+    actions.deleteTask(index);
   }
 
   function handleToggleComplete() {
-    toggleComplete(index);
+    actions.toggleComplete(index);
   }
 
   const checkboxIcon = todo.isComplete
