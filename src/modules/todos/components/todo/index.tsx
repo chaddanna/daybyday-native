@@ -11,20 +11,16 @@ type TodoProps = {
 };
 
 export const Todo: FC<TodoProps> = ({ todo, index }) => {
-  const { actions } = useContext(TaskContext);
-
+  const { deleteTask, toggleComplete } = useContext(TaskContext);
   function handleDelete() {
-    actions.deleteTask(index);
+    deleteTask(index);
   }
-
   function handleToggleComplete() {
-    actions.toggleComplete(index);
+    toggleComplete(index);
   }
-
   const checkboxIcon = todo.isComplete
     ? "md-checkbox-outline"
     : "md-square-outline";
-
   return (
     <View style={styles.todo}>
       <Text style={styles.label}>{todo.label}</Text>

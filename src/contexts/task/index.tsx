@@ -5,44 +5,42 @@ export type Task = {
   isComplete?: boolean;
 };
 
-type ActionFunction = (index: number) => void;
+type TaskFunction = (task: Task) => void;
+type IndexFunction = (index: number) => void;
 
 export type TaskContextValues = {
   tasks: Task[];
-  actions: {
-    addTask: (task: Task) => void;
-    deleteTask: ActionFunction;
-    toggleComplete: ActionFunction;
-  };
+  addTask: TaskFunction;
+  deleteTask: IndexFunction;
+  toggleComplete: IndexFunction;
 };
 
 export const TaskContext = createContext<TaskContextValues>({
   tasks: [],
-  actions: {
-    addTask: () => null,
-    deleteTask: () => null,
-    toggleComplete: () => null,
-  },
+  addTask: () => null,
+  deleteTask: () => null,
+  toggleComplete: () => null,
 });
 
 export const TaskProvider: FC = ({ children }) => {
   const [tasks, setTasks] = useState<Task[]>([]);
-  function addTask(task: Task) {
-    setTasks([...tasks, task]);
-  }
-  function deleteTask(index: number) {
-    const newTasks = [...tasks];
-    newTasks.splice(index, 1);
-    setTasks(newTasks);
-  }
-  function toggleComplete(index: number) {
-    const newTasks = [...tasks];
-    newTasks[index].isComplete = !newTasks[index].isComplete;
-    setTasks(newTasks);
-  }
-  const actions = { addTask, deleteTask, toggleComplete };
+  const actions = {
+    addTask(task: Task) {
+      setTasks([...tasks, task]);
+    },
+    deleteTask(index: number) {
+      const newTasks = [...tasks];
+      newTasks.splice(index, 1);
+      setTasks(newTasks);
+    },
+    toggleComplete(index: number) {
+      const newTasks = [...tasks];
+      newTasks[index].isComplete = !newTasks[index].isComplete;
+      setTasks(newTasks);
+    },
+  };
   return (
-    <TaskContext.Provider value={{ tasks, actions }}>
+    <TaskContext.Provider value={{ tasks, ...actions }}>
       {children}
     </TaskContext.Provider>
   );
