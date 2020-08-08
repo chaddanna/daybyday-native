@@ -5,12 +5,15 @@ export const styles = StyleSheet.create({
   log: {
     flexDirection: "row",
     justifyContent: "space-between",
-    borderBottomColor: colors.white,
-    borderBottomWidth: 1,
-    padding: 10,
+    paddingVertical: 12,
   },
-  text: {
+  labelText: {
     color: colors.text,
-    fontSize: typography.text,
+    fontSize: typography.subHeading,
+  },
+  dateText: {
+    color: colors.text,
+    fontSize: typography.meta,
+    marginTop: 4,
   },
 });
