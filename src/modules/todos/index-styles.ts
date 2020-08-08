@@ -9,4 +9,8 @@ export const styles = StyleSheet.create({
     borderColor: colors.text,
     borderWidth: 1,
   },
+  container: {
+    flexGrow: 1,
+    marginVertical: 40,
+  },
 });

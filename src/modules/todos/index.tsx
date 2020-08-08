@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { View, TextInput } from "react-native";
+import { View, TextInput, ScrollView, FlatList } from "react-native";
 import { Task, TaskContext } from "../../contexts/task";
 import { Container } from "../../components/container";
 import { ScreenTitle } from "../../components/screen-title";
@@ -16,20 +16,24 @@ export function Todos() {
     addTask(todo);
     setTodoValue("");
   }
+  function renderItem({ item, index }: { item: Task; index: number }) {
+    return <Todo todo={item} index={index}></Todo>;
+  }
   return (
     <Container>
       <ScreenTitle>Todos</ScreenTitle>
-      <View>
-        {tasks.map((t, i) => (
-          <Todo key={t.label} todo={t} index={i} />
-        ))}
-        <TextInput
-          style={styles.input}
-          onChangeText={(t) => setTodoValue(t)}
-          value={todoValue}
-        />
-        <Button onPress={addTodo}>Add Todo</Button>
-      </View>
+      <TextInput
+        style={styles.input}
+        onChangeText={(t) => setTodoValue(t)}
+        value={todoValue}
+      />
+      <Button onPress={addTodo}>Add Todo</Button>
+      <FlatList
+        style={styles.container}
+        data={tasks}
+        renderItem={renderItem}
+        keyExtractor={(t) => t.label}
+      />
     </Container>
   );
 }

@@ -3,11 +3,13 @@ import { colors, typography } from "../../../../styles";
 
 export const styles = StyleSheet.create({
   todo: {
-    display: "flex",
+    backgroundColor: colors.base,
+    borderRadius: 6,
+    padding: 12,
+    marginVertical: 6,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingVertical: 16,
   },
   label: {
     color: colors.text,
