@@ -25,19 +25,17 @@ type Icons = {
   [key: string]: string;
 };
 
-const icons: Icons = {
-  [Routes.Todos]: "ios-checkbox-outline",
-  [Routes.Logs]: "ios-list",
-  [Routes.StandUp]: "ios-people",
-};
-
-const routes: Route[] = [
-  { name: Routes.StandUp, component: StandUp, options: { tabBarBadge: 3 } },
-  { name: Routes.Todos, component: Todos },
-  { name: Routes.Logs, component: Logs },
-];
-
 export function Navigation() {
+  const icons: Icons = {
+    [Routes.Todos]: "ios-checkbox-outline",
+    [Routes.Logs]: "ios-list",
+    [Routes.StandUp]: "ios-people",
+  };
+  const routes: Route[] = [
+    { name: Routes.StandUp, component: StandUp, options: { tabBarBadge: 3 } },
+    { name: Routes.Todos, component: Todos },
+    { name: Routes.Logs, component: Logs },
+  ];
   return (
     <Tab.Navigator
       initialRouteName={Routes.Todos}
