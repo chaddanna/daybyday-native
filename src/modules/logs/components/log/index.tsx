@@ -18,14 +18,14 @@ export const Log: FC<LogProps> = ({ log: { label, dateCompleted }, index }) => {
   }
   return (
     <View style={styles.log}>
-      <View>
+      <View style={styles.content}>
         <Text style={styles.labelText}>{label}</Text>
         {dateCompleted && (
           <Text style={styles.dateText}>{format(dateCompleted, "Pp")}</Text>
         )}
       </View>
-      <TouchableOpacity onPress={handlePress}>
-        <Ionicons name="md-trash" size={30} color={colors.white} />
+      <TouchableOpacity onPress={handlePress} style={styles.delete}>
+        <Ionicons name="md-trash" size={24} color={colors.white} />
       </TouchableOpacity>
     </View>
   );

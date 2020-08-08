@@ -1,9 +1,10 @@
 import React, { useContext } from "react";
-import { ScrollView } from "react-native";
+import { FlatList } from "react-native";
 import { Container } from "../../components/container";
 import { ScreenTitle } from "../../components/screen-title";
 import { Task, TaskContext } from "../../contexts/task";
 import { Log } from "./components/log";
+import { styles } from "./index-styles";
 
 export function Logs() {
   const { tasks } = useContext(TaskContext);
@@ -16,17 +17,18 @@ export function Logs() {
     }
     return +new Date();
   }
+  function renderItem({ item, index }: { item: Task; index: number }) {
+    return <Log log={item} index={index} />;
+  }
   return (
     <Container>
       <ScreenTitle>Logs</ScreenTitle>
-      <ScrollView>
-        {tasks
-          .filter(completed)
-          .sort(latestFirst)
-          .map((t, i) => (
-            <Log key={t.label} log={t} index={i} />
-          ))}
-      </ScrollView>
+      <FlatList
+        style={styles.container}
+        data={tasks.filter(completed).sort(latestFirst)}
+        renderItem={renderItem}
+        keyExtractor={(t) => t.label}
+      />
     </Container>
   );
 }
