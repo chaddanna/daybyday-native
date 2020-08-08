@@ -2,7 +2,8 @@ import React, { createContext, FC, useState } from "react";
 
 export type Task = {
   label: string;
-  isComplete?: boolean;
+  isComplete: boolean;
+  dateCompleted?: Date;
 };
 
 type TaskFunction = (task: Task) => void;
@@ -35,6 +36,9 @@ export const TaskProvider: FC = ({ children }) => {
     },
     toggleComplete(index: number) {
       const newTasks = [...tasks];
+      newTasks[index].dateCompleted = !newTasks[index].isComplete
+        ? new Date()
+        : undefined;
       newTasks[index].isComplete = !newTasks[index].isComplete;
       setTasks(newTasks);
     },
